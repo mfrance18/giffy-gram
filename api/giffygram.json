@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Matt",
+      "date": 1630513816281,
+      "email": "trumpetman072392@aol.com"
+    },
+    {
+      "name": "Jeff",
+      "date": 1630513816281,
+      "email": "jeff@gmail.com",
+      "id": 2
+    },
+    {
+      "name": "Zack",
+      "date": 1630513816281,
+      "email": "zack@gmail.com",
+      "id": 3
+    },
+    {
+      "name": "Austin",
+      "date": 1630513816281,
+      "email": "austin@gmail.com",
+      "id": 4
+    }
+  ],
+  "posts": [],
+  "messages": []
+}
