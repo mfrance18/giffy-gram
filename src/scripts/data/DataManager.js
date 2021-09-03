@@ -1,7 +1,7 @@
 const loggedInUser = {
 	id: 1,
 	name: "Matt",
-    date: 1630513816281,
+	date: 1630513816281,
 	email: "trumpetman072392@aol.com"
 }
 
@@ -11,9 +11,14 @@ export const getLoggedInUser = () => {
 
 export const getUsers = () => {
 
-    return fetch("http://localhost:8088/users")
-    .then(response => response.json())
+	return fetch("http://localhost:8088/users")
+		// this is converting the data so javascript can read it
+		.then(response => response.json())
 }
 
+export const getPosts = () => {
 
+	return fetch("http://localhost:8088/posts")
+		.then(response => response.json())
+}
 
