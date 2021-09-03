@@ -12,7 +12,7 @@ export const getLoggedInUser = () => {
 export const getUsers = () => {
 
 	return fetch("http://localhost:8088/users")
-		// this is converting the data so javascript can read it
+		// this is translating javascript can read it
 		.then(response => response.json())
 }
 
