@@ -1,11 +1,11 @@
-import { getUsers, getPosts } from "./data/DataManager.js";
+import { getUsers, getPosts, usePostCollection } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./nav/NavBar.js";
 import { showFooter } from "./footer/footerDisplay.js";
 
 const applicationElement = document.querySelector(".giffygram")
 
-//event listeners
+// click event listeners
 applicationElement.addEventListener("click", event => {
 
     if (event.target.id === "logout") {  //logout button
@@ -20,7 +20,28 @@ applicationElement.addEventListener("click", event => {
     }
 })
 
+applicationElement.addEventListener("change", event => {
+    if (event.target.id === "yearSelection") {
+        const yearAsNumber = parseInt(event.target.value)
+        console.log(`User wants to see posts since ${yearAsNumber}`)
+        showFilteredPosts(yearAsNumber)
+    }
+})
+
 //functions for displaying to HTML
+const showFilteredPosts = (year) => {
+    const epoch = Date.parse(`01/01/${year}`)
+    const filteredData = usePostCollection().filter(singlePost => {
+        if (singlePost.timestamp >= epoch) {
+            return singlePost
+        }
+    })
+    const postElement = document.querySelector(".postList")
+    postElement.innerHTML = PostList(filteredData)
+}
+
+
+
 const showNavBar = () => {
     const navElement = document.querySelector("nav")
     navElement.innerHTML += NavBar()
