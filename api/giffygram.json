@@ -27,19 +27,29 @@
   ],
   "posts": [
     {
-    "id":1,
-    "userId": 1,
-    "title": "This is hilarious",
-    "imageURL": "https://media.giphy.com/media/gj0QdZ9FgqGhOBNlFS/giphy.gif",
-    "timestamp": 1567965871941
+      "id": 1,
+      "userId": 1,
+      "title": "This is hilarious",
+      "description": "So funny",
+      "imageURL": "https://media.giphy.com/media/gj0QdZ9FgqGhOBNlFS/giphy.gif",
+      "timestamp": 1567965871941
     },
     {
-      "id":2,
-      "userId":1,
+      "id": 2,
+      "userId": 1,
       "title": "What the dog doing",
+      "description": "So funny",
       "imageURL": "https://media.giphy.com/media/7XuKKmGiaxXe6EjOj4/giphy.gif",
       "timestamp": 1599588271941
+    },
+    {
+      "title": "Hilarious",
+      "description": "So funny",
+      "imageURL": "https://media.giphy.com/media/xThta1UGIPPnJ5tm6I/giphy.gif",
+      "userId": 1,
+      "timestamp": 1631129097485,
+      "id": 3
     }
-],
+  ],
   "messages": []
 }
