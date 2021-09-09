@@ -27,33 +27,33 @@ applicationElement.addEventListener("click", event => {
     if (event.target.id === "newPost__cancel") {
         //clear the input fields
     }
-  })
-  
-  //SAVE BUTTON FUNCTION TO POST 
-  applicationElement.addEventListener("click", event => {
+})
+
+//SAVE BUTTON FUNCTION TO POST 
+applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id === "newPost__submit") {
-    //collect the input values into an object to post to the DB
-      const title = document.querySelector("input[name='postTitle']").value
-      const url = document.querySelector("input[name='postURL']").value
-      const description = document.querySelector("textarea[name='postDescription']").value
-      //we have not created a user yet - for now, we will hard code `1`.
-      //we can add the current time as well
-      const postObject = {
-          title: title,
-          imageURL: url,
-          userId: 1,
-          description: description,
-          timestamp: Date.now()
-      }
-  
-    // be sure to import from the DataManager
+        //collect the input values into an object to post to the DB
+        const title = document.querySelector("input[name='postTitle']").value
+        const url = document.querySelector("input[name='postURL']").value
+        const description = document.querySelector("textarea[name='postDescription']").value
+        //we have not created a user yet - for now, we will hard code `1`.
+        //we can add the current time as well
+        const postObject = {
+            title: title,
+            imageURL: url,
+            userId: 1,
+            description: description,
+            timestamp: Date.now()
+        }
+
+        // be sure to import from the DataManager
         createPost(postObject)
-        .then(dataBase => {
-            showPostList()
-        })
+            .then(dataBase => {
+                showPostList()
+            })
     }
-  })
+})
 
 
 //FILTER BY YEAR IN FOOTER
@@ -64,15 +64,6 @@ applicationElement.addEventListener("change", event => {
         showFilteredPosts(yearAsNumber)
     }
 })
-
-
-//functions for displaying to HTML
-const showPostEntry = () => { 
-    //Get a reference to the location on the DOM where the nav will display
-    const entryElement = document.querySelector(".entryForm");
-    entryElement.innerHTML = PostEntry();
-  }
-
 
 const showFilteredPosts = (year) => {
     const epoch = Date.parse(`01/01/${year}`)
@@ -85,6 +76,12 @@ const showFilteredPosts = (year) => {
     postElement.innerHTML = PostList(filteredData)
 }
 
+//functions for displaying to HTML
+const showPostEntry = () => {
+    //Get a reference to the location on the DOM where the nav will display
+    const entryElement = document.querySelector(".entryForm");
+    entryElement.innerHTML = PostEntry();
+}
 
 
 const showNavBar = () => {
