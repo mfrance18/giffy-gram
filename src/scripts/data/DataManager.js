@@ -24,7 +24,7 @@ export const usePostCollection = () => {
   //The spread operator makes this quick work
   return [...postCollection];
 }
-
+//GETS ALL POSTS
 export const getPosts = () => {
 	return fetch("http://localhost:8088/posts")
 		.then(response => response.json())
@@ -33,7 +33,12 @@ export const getPosts = () => {
 			return parsedResponse;
 		  })
 }
-
+// GETS A SINGLE POST
+export const getSinglePost = (postId) => {
+	return fetch(`http://localhost:8088/posts/${postId}`)
+	  .then(response => response.json())
+  }
+// ALLOWS US TO CREATE POST
 export const createPost = postObj => {
 	return fetch("http://localhost:8088/posts", {
 		method: "POST",
@@ -45,5 +50,27 @@ export const createPost = postObj => {
 	})
 		.then(response => response.json())
   }
+//FUNCTION TO DELETE POST
+  export const deletePost = postId => {
+	return fetch(`http://localhost:8088/posts/${postId}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		}
   
-
+	})
+		.then(response => response.json())
+  }
+//THIS MAKES THE UPDATE BUTTON WORK
+  export const updatePost = postObj => {
+	return fetch(`http://localhost:8088/posts/${postObj.id}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(postObj)
+  
+	})
+		.then(response => response.json())
+		
+  }
