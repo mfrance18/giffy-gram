@@ -18,7 +18,6 @@ export const setLoggedInUser = (userObj) => {
   }
 
 export const getUsers = () => {
-
 	return fetch("http://localhost:8088/users")
 		// this is translating javascript can read it
 		.then(response => response.json())
@@ -40,6 +39,21 @@ export const loginUser = (userObj) => {
 	})
   }
 
+  export const registerUser = (userObj) => {
+	return fetch(`http://localhost:8088/users`, {
+	  method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(userObj)
+	})
+	.then(response => response.json())
+	.then(parsedUser => {
+	  setLoggedInUser(parsedUser);
+	  return getLoggedInUser();
+	})
+  }
+
 let postCollection = [];
 
 export const usePostCollection = () => {
@@ -48,15 +62,18 @@ export const usePostCollection = () => {
   //The spread operator makes this quick work
   return [...postCollection];
 }
-//GETS ALL POSTS
+
 export const getPosts = () => {
-	return fetch("http://localhost:8088/posts")
-		.then(response => response.json())
-		.then(parsedResponse => {
-			postCollection = parsedResponse
-			return parsedResponse;
-		  })
-}
+	const userId = getLoggedInUser().id
+	return fetch(`http://localhost:8088/posts?_expand=user`)
+	  .then(response => response.json())
+	  .then(parsedResponse => {
+		console.log("data with user", parsedResponse)
+		postCollection = parsedResponse
+		return parsedResponse;
+	  })
+  }
+
 // GETS A SINGLE POST
 export const getSinglePost = (postId) => {
 	return fetch(`http://localhost:8088/posts/${postId}`)

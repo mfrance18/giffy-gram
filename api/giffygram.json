@@ -8,32 +8,11 @@
     },
     {
       "name": "Jeff",
-      "date": 1630513816281,
       "email": "jeff@gmail.com",
       "id": 2
-    },
-    {
-      "name": "Zack",
-      "date": 1630513816281,
-      "email": "zack@gmail.com",
-      "id": 3
-    },
-    {
-      "name": "Austin",
-      "date": 1630513816281,
-      "email": "austin@gmail.com",
-      "id": 4
     }
   ],
   "posts": [
-    {
-      "title": "Its Monday....",
-      "imageURL": "https://media.giphy.com/media/3o6fJbwYFe3SmVVQ4M/giphy.gif",
-      "description": "document.write(\"I hate Mondays\")",
-      "userId": 1,
-      "timestamp": 1632161785202,
-      "id": 1
-    },
     {
       "title": "Yepp",
       "imageURL": "https://media.giphy.com/media/1hqYk0leUMddBBkAM7/giphy.gif",
