@@ -1,13 +1,21 @@
-const loggedInUser = {
+let loggedInUser = {
 	id: 1,
 	name: "Matt",
 	date: 1630513816281,
 	email: "trumpetman072392@aol.com"
 }
 
+export const logoutUser = () => {
+	loggedInUser = {}
+}
+
 export const getLoggedInUser = () => {
 	return loggedInUser;
 }
+
+export const setLoggedInUser = (userObj) => {
+	loggedInUser = userObj;
+  }
 
 export const getUsers = () => {
 
@@ -15,6 +23,22 @@ export const getUsers = () => {
 		// this is translating javascript can read it
 		.then(response => response.json())
 }
+
+export const loginUser = (userObj) => {
+	return fetch(`http://localhost:8088/users?name=${userObj.name}&email=${userObj.email}`)
+	.then(response => response.json())
+	.then(parsedUser => {
+	  //is there a user?
+	  console.log("parsedUser", parsedUser) //data is returned as an array
+	  if (parsedUser.length > 0){
+		setLoggedInUser(parsedUser[0]);
+		return getLoggedInUser();
+	  }else {
+		//no user
+		return false;
+	  }
+	})
+  }
 
 let postCollection = [];
 

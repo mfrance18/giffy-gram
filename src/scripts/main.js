@@ -1,9 +1,11 @@
-import { getUsers, getLoggedInUser, getPosts, usePostCollection, createPost, deletePost, getSinglePost, updatePost } from "./data/DataManager.js";
+import { getUsers, loginUser, setLoggedInUser, logoutUser, getLoggedInUser, getPosts, usePostCollection, createPost, deletePost, getSinglePost, updatePost } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./nav/NavBar.js";
 import { showFooter } from "./footer/footerDisplay.js";
 import { PostEntry } from "./feed/PostEntry.js";
 import { PostEdit } from "./feed/PostEdit.js";
+import { LoginForm} from "./auth/LoginForm.js";
+import { RegisterForm } from "./auth/RegisterForm.js";
 
 
 
@@ -32,6 +34,27 @@ const showEdit = (postObj) => {
     entryElement.innerHTML = PostEdit(postObj);
 }
 
+const checkForUser = () => {
+    if (sessionStorage.getItem("user")){
+      //this is expecting an object. Need to fix
+        setLoggedInUser(JSON.parse(sessionStorage.getItem("user")));
+      startGiffyGram();
+    }else {
+      //show login/register
+      showLoginRegister()
+    }
+  }
+
+  const showLoginRegister = () => {
+    showNavBar();
+    const entryElement = document.querySelector(".entryForm");
+    //template strings can be used here too
+    entryElement.innerHTML = `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+    //make sure the post list is cleared out too
+  const postElement = document.querySelector(".postList");
+  postElement.innerHTML = "";
+}
+
 
 
 // click event listeners
@@ -41,7 +64,8 @@ const applicationElement = document.querySelector(".giffygram")
 applicationElement.addEventListener("click", event => {
 
     if (event.target.id === "logout") {  //logout button
-        console.log("You just logged out")
+        logoutUser();
+        console.log(getLoggedInUser(), "logout clicked")
     } else if (event.target.id === "navImg") {  // peanut butter jar img
         window.location.reload()
     } else if (event.target.id === "directMessageIcon") {  // pen icon
@@ -54,6 +78,29 @@ applicationElement.addEventListener("click", event => {
             })
     }
 })
+
+//LOGIN BUTTON EVENT LISTENER
+applicationElement.addEventListener("click", event => {
+    event.preventDefault();
+    if (event.target.id === "login__submit") {
+      //collect all the details into an object
+      const userObject = {
+        name: document.querySelector("input[name='name']").value,
+        email: document.querySelector("input[name='email']").value
+      }
+      loginUser(userObject)
+      .then(dbUserObj => {
+        if(dbUserObj){
+          sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+          startGiffyGram();
+        }else {
+          //got a false value - no user
+          const entryElement = document.querySelector(".entryForm");
+          entryElement.innerHTML = `<p class="center">That user does not exist. Please try again or register for your free account.</p> ${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+        }
+      })
+    }
+  })
 
 //CANCEL BUTTON TO CLEAR FORM EVENT LISTENER
 applicationElement.addEventListener("click", event => {
@@ -161,6 +208,7 @@ const startGiffyGram = () => {
     showPostEntry()
 }
 
+checkForUser()
 
 //start the website
-startGiffyGram();
+// startGiffyGram();
