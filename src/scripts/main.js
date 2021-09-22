@@ -1,6 +1,7 @@
 import {
     getUsers, registerUser, loginUser, setLoggedInUser, logoutUser, getLoggedInUser,
-    getPosts, usePostCollection, createPost, deletePost, getSinglePost, updatePost
+    getPosts, usePostCollection, createPost, deletePost, getSinglePost, 
+    updatePost, postLike
 } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./nav/NavBar.js";
@@ -84,7 +85,8 @@ applicationElement.addEventListener("click", event => {
     }
 })
 
-//LOGIN BUTTON EVENT LISTENER
+///////////////////LOGIN BUTTON EVENT LISTENER////////////////////
+
 applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id === "login__submit") {
@@ -107,7 +109,8 @@ applicationElement.addEventListener("click", event => {
     }
 })
 
-//REGISTER BUTTON EVENT LISTENER
+//////////////////REGISTER BUTTON EVENT LISTENER////////////////////////
+
 applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id === "register__submit") {
@@ -124,14 +127,16 @@ applicationElement.addEventListener("click", event => {
     }
 })
 
-//CANCEL BUTTON TO CLEAR FORM EVENT LISTENER
+/////////////////////CANCEL BUTTON TO CLEAR FORM EVENT LISTENER//////////////////
+
 applicationElement.addEventListener("click", event => {
     if (event.target.id === "newPost__cancel") {
         showPostEntry()
     }
 })
 
-//SAVE BUTTON EVENT LISTENER 
+///////////////SAVE BUTTON EVENT LISTENER ////////////////////
+
 applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id === "newPost__submit") {
@@ -150,7 +155,7 @@ applicationElement.addEventListener("click", event => {
             userId: user.id,
             timestamp: Date.now()
         }
-        console.log(user, "user")
+        console.log(postObject, "user")
         // be sure to import from the DataManager
         createPost(postObject)
             .then(dataBase => {
@@ -161,7 +166,8 @@ applicationElement.addEventListener("click", event => {
 })
 
 
-//DELETE BUTTON EVENT LISTENER
+////////////////////DELETE BUTTON EVENT LISTENER////////////////////
+
 applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id.startsWith("delete")) {
@@ -173,7 +179,8 @@ applicationElement.addEventListener("click", event => {
     }
 })
 
-//UPDATE BUTTON EVENT LISTENER
+////////////////////////UPDATE BUTTON EVENT LISTENER////////////////
+
 applicationElement.addEventListener("click", event => {
     event.preventDefault();
     if (event.target.id.startsWith("updatePost")) {
@@ -200,6 +207,22 @@ applicationElement.addEventListener("click", event => {
             })
     }
 })
+
+//////////////LIKEBUTTON EVENT LISTERNER///////////////////
+
+applicationElement.addEventListener("click", event => {
+	event.preventDefault();
+	if (event.target.id.startsWith("like")) {
+	  const likeObject = {
+		 postId: parseInt(event.target.id.split("__")[1]),
+		 userId: getLoggedInUser().id
+	  }
+	  postLike(likeObject)
+		.then(response => {
+		  showPostList();
+		})
+	}
+  })
 
 //FILTER BY YEAR IN FOOTER
 applicationElement.addEventListener("change", event => {
